@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MS Dhoni – The Captain Cool Tribute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #06090F;
+      --surface: #0C1220;
+      --card:    #101828;
+      --blue:    #1D6FA4;
+      --gold:    #C9A84C;
+      --sky:     #38BDF8;
+      --text:    #EEF2FF;
+      --muted:   #64748B;
+      --border:  rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px 40px;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 50% 0%, rgba(29,111,164,0.2) 0%, transparent 65%),
+                  linear-gradient(180deg, #06090F 0%, #0C1220 100%);
+    }
+
+    /* MSD number watermark */
+    .hero::before {
+      content: "7";
+      position: absolute;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(280px, 50vw, 650px);
+      color: rgba(29,111,164,0.05);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .hero-badge {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--sky);
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 4px;
+      padding: 5px 16px;
+      margin-bottom: 28px;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 13vw, 140px);
+      font-weight: 700;
+      line-height: 0.9;
+      letter-spacing: -1px;
+      position: relative;
+    }
+    .hero h1 .first { color: var(--text); display: block; }
+    .hero h1 .last  {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--blue);
+      display: block;
+    }
+
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(15px, 2.5vw, 20px);
+      color: var(--gold);
+      margin: 20px 0 44px;
+      position: relative;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-numbers {
+      display: flex;
+      gap: clamp(28px, 7vw, 70px);
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-num .val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 8vw, 68px);
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-num .lbl {
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 5px;
+    }
+
+    .scroll-line {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column;
+      align-items: center; gap: 6px;
+      color: var(--muted); font-size: 10px;
+      letter-spacing: 3px; text-transform: uppercase;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .scroll-line::after {
+      content: '';
+      width: 1px; height: 44px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+    /* ── SECTIONS ── */
+    section { padding: 80px 24px; max-width: 960px; margin: 0 auto; }
+    .sec-eye {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 3px; text-transform: uppercase;
+      color: var(--sky); margin-bottom: 12px;
+    }
+    .sec-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 7vw, 60px);
+      font-weight: 700; line-height: 1;
+      margin-bottom: 36px;
+    }
+    .rule { max-width: 960px; margin: 0 auto; height: 1px; background: var(--border); }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 44px; align-items: start;
+    }
+    @media(max-width:640px){ .about-grid { grid-template-columns:1fr; } }
+
+    .about-text p {
+      font-size: 15px; color: #94A3B8;
+      line-height: 1.9; margin-bottom: 16px;
+    }
+    .about-text p strong { color: var(--text); }
+
+    .info-table { width: 100%; border-collapse: collapse; }
+    .info-table tr { border-bottom: 1px solid var(--border); }
+    .info-table tr:last-child { border-bottom: none; }
+    .info-table td {
+      padding: 12px 8px; font-size: 14px;
+    }
+    .info-table .k { color: var(--muted); width: 45%; }
+    .info-table .v { color: var(--text); font-weight: 500; }
+
+    /* ── TIMELINE ── */
+    .tl { position: relative; padding-left: 32px; }
+    .tl::before {
+      content: ''; position: absolute;
+      left: 0; top: 8px; bottom: 8px; width: 1px;
+      background: linear-gradient(to bottom, var(--blue), var(--gold), transparent);
+    }
+    .tl-item {
+      position: relative; margin-bottom: 40px;
+      opacity: 0; transform: translateX(-16px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .tl-item.visible { opacity: 1; transform: translateX(0); }
+    .tl-item::before {
+      content: ''; position: absolute;
+      left: -38px; top: 7px;
+      width: 10px; height: 10px;
+      border-radius: 50%; background: var(--blue);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 3px rgba(29,111,164,0.25);
+    }
+    .tl-yr {
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .tl-hd { font-size: 16px; font-weight: 600; margin-bottom: 5px; }
+    .tl-desc { font-size: 14px; color: #64748B; line-height: 1.65; }
+
+    /* ── HONOURS ── */
+    .honours-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 14px;
+    }
+    .honour-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .honour-card:hover { border-color: rgba(201,168,76,0.35); transform: translateY(-3px); }
+    .hicon { font-size: 28px; margin-bottom: 10px; }
+    .hname { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    .hcount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 700;
+      color: var(--gold); line-height: 1;
+    }
+    .hlbl { font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+
+    /* ── QUOTE ── */
+    .quote-wrap {
+      max-width: 960px; margin: 0 auto;
+      padding: 60px 24px;
+    }
+    .quote-inner {
+      background: var(--surface);
+      border: 1px solid rgba(29,111,164,0.2);
+      border-radius: 16px;
+      padding: clamp(32px, 6vw, 56px);
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .quote-inner::before {
+      content: '"';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 200px; color: rgba(29,111,164,0.06);
+      position: absolute; top: -40px; left: 16px;
+      line-height: 1; pointer-events: none;
+    }
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(18px, 3.5vw, 26px);
+      color: var(--text); line-height: 1.6;
+      position: relative; margin-bottom: 20px;
+    }
+    .quote-attr { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+
+    /* ── RECORDS ── */
+    .records-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .rec-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 18px;
+      display: flex; gap: 14px; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .rec-card:hover { border-color: rgba(29,111,164,0.3); }
+    .rec-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 6px; }
+    .rec-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+    .rec-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    footer {
+      text-align: center; padding: 40px 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px; color: var(--muted);
+    }
+    footer span { color: var(--gold); }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">OIBSIP · Web Dev · Level 2 · Task 2</div>
+  <h1>
+    <span class="first">Mahendra Singh</span>
+    <span class="last">Dhoni</span>
+  </h1>
+  <p class="hero-tagline">"The man who never lost his cool — even when the world was watching."</p>
+  <div class="hero-numbers">
+    <div class="hero-num"><div class="val">350+</div><div class="lbl">ODI Matches</div></div>
+    <div class="hero-num"><div class="val">3</div><div class="lbl">ICC Titles</div></div>
+    <div class="hero-num"><div class="val">10,000+</div><div class="lbl">ODI Runs</div></div>
+    <div class="hero-num"><div class="val">5</div><div class="lbl">IPL Titles</div></div>
+  </div>
+  <div class="scroll-line">scroll</div>
+</div>
+
+<!-- ABOUT -->
+<section>
+  <div class="sec-eye">About the Legend</div>
+  <div class="sec-title">Who is MSD?</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        <strong>Mahendra Singh Dhoni</strong> was born on July 7, 1981, in Ranchi, Jharkhand. From a small railway town to becoming the most celebrated captain in Indian cricket history — his journey is one of the most remarkable sporting stories ever told.
+      </p>
+      <p>
+        Known as <strong>Captain Cool</strong>, Dhoni's ability to remain calm under pressure became his defining trait. Whether it was the 2011 World Cup final six, a last-ball finish, or a crisis situation — Dhoni thrived where others froze.
+      </p>
+      <p>
+        His lightning-quick <strong>wicketkeeping</strong>, unorthodox batting, and ice-cold decision-making as captain made him irreplaceable. He is the only captain in history to win all three ICC trophies — T20 World Cup, ODI World Cup, and Champions Trophy.
+      </p>
+    </div>
+    <table class="info-table">
+      <tr><td class="k">Full Name</td><td class="v">Mahendra Singh Dhoni</td></tr>
+      <tr><td class="k">Born</td><td class="v">7 July 1981, Ranchi</td></tr>
+      <tr><td class="k">Nationality</td><td class="v">Indian</td></tr>
+      <tr><td class="k">Role</td><td class="v">Wicketkeeper-Batsman</td></tr>
+      <tr><td class="k">Batting Style</td><td class="v">Right-handed</td></tr>
+      <tr><td class="k">Jersey Number</td><td class="v">#7</td></tr>
+      <tr><td class="k">IPL Team</td><td class="v">Chennai Super Kings</td></tr>
+      <tr><td class="k">Nickname</td><td class="v">Captain Cool / Mahi</td></tr>
+    </table>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- TIMELINE -->
+<section>
+  <div class="sec-eye">The Journey</div>
+  <div class="sec-title">Career Timeline</div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-yr">2004</div>
+      <div class="tl-hd">International Debut</div>
+      <div class="tl-desc">Made his ODI debut against Bangladesh. Scored 0 — but India saw something special in the young keeper from Ranchi.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-yr">2005</div>
+      <div class="tl-hd">183* vs Sri Lanka — The Arrival</div>
+      <div class="tl-desc">Smashed 183* off 145 balls in Jaipur — the highest ODI score by a wicketkeeper. The world sat up and noticed.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-yr">2007</div>
+      <div class="tl-hd">T20 World Cup — First Captain, First Title</div>
+      <div class="tl-desc">Led India to the inaugural ICC T20 World Cup victory in South Africa. Famous for giving the final over to Joginder Sharma — a masterstroke that stunned Pakistan.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-yr">2008</div>
+      <div class="tl-hd">Full-Time Captain + IPL Begins</div>
+      <div class="tl-desc">Appointed Test captain. Also became the first captain of Chennai Super Kings in the IPL — beginning a dynasty that would win 5 IPL titles.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-yr">2011</div>
+      <div class="tl-hd">ODI World Cup — That Six</div>
+      <div class="tl-desc">Led India to their second ODI World Cup on home soil. Promoted himself up the batting order in the final and finished it with a towering six over long-on — one of cricket's most iconic moments.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-yr">2013</div>
+      <div class="tl-hd">Champions Trophy — The Treble</div>
+      <div class="tl-desc">Won the ICC Champions Trophy, becoming the only captain in history to win all three ICC limited-overs trophies.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-yr">2020</div>
+      <div class="tl-hd">Retirement — A Quiet Goodbye</div>
+      <div class="tl-desc">Announced his international retirement on Instagram on Independence Day — no press conference, no fanfare. Just a short video. Perfectly Dhoni.</div>
+    </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- HONOURS -->
+<section>
+  <div class="sec-eye">Honours & Awards</div>
+  <div class="sec-title">Trophy Cabinet</div>
+  <div class="honours-grid">
+    <div class="honour-card"><div class="hicon">🏆</div><div class="hname">ICC T20 World Cup</div><div class="hcount">1</div><div class="hlbl">2007</div></div>
+    <div class="honour-card"><div class="hicon">🌏</div><div class="hname">ICC ODI World Cup</div><div class="hcount">1</div><div class="hlbl">2011</div></div>
+    <div class="honour-card"><div class="hicon">🥇</div><div class="hname">Champions Trophy</div><div class="hcount">1</div><div class="hlbl">2013</div></div>
+    <div class="honour-card"><div class="hicon">🏏</div><div class="hname">IPL Titles</div><div class="hcount">5</div><div class="hlbl">CSK Captain</div></div>
+    <div class="honour-card"><div class="hicon">⭐</div><div class="hname">Padma Bhushan</div><div class="hcount">1</div><div class="hlbl">2018</div></div>
+    <div class="honour-card"><div class="hicon">🎖️</div><div class="hname">Rajiv Gandhi Khel Ratna</div><div class="hcount">1</div><div class="hlbl">2007-08</div></div>
+    <div class="honour-card"><div class="hicon">🧤</div><div class="hname">ODI Stumpings</div><div class="hcount">123</div><div class="hlbl">World Record</div></div>
+    <div class="honour-card"><div class="hicon">🏅</div><div class="hname">ICC ODI Ranking</div><div class="hcount">#1</div><div class="hlbl">Peak Batsman</div></div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-wrap">
+  <div class="quote-inner">
+    <p class="quote-text">"Processes are more important than results. If you follow the process, the result will take care of itself."</p>
+    <div class="quote-attr">— MS Dhoni</div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<!-- RECORDS -->
+<section>
+  <div class="sec-eye">History Books</div>
+  <div class="sec-title">World Records</div>
+  <div class="records-grid">
+    <div class="rec-card"><div class="rec-dot"></div><div><div class="rec-title">Only Captain to Win All 3 ICC Trophies</div><div class="rec-desc">T20 World Cup (2007), ODI World Cup (2011), Champions Trophy (2013) — a treble no other captain has achieved.</div></div></div>
+    <div class="rec-card"><div class="rec-dot"></div><div><div class="rec-title">Most ODI Stumpings — World Record</div><div class="rec-desc">123 stumpings in ODIs — the most by any wicketkeeper in international cricket history.</div></div></div>
+    <div class="rec-card"><div class="rec-dot"></div><div><div class="rec-title">Fastest Wicketkeeper in the World</div><div class="rec-desc">His lightning stumping speed — clocked at under 0.08 seconds — is the fastest ever recorded.</div></div></div>
+    <div class="rec-card"><div class="rec-dot"></div><div><div class="rec-title">Most Successful IPL Captain</div><div class="rec-desc">Led Chennai Super Kings to 5 IPL titles — more than any other captain in IPL history.</div></div></div>
+    <div class="rec-card"><div class="rec-dot"></div><div><div class="rec-title">183* — Highest Score by a Keeper</div><div class="rec-desc">His 183* vs Sri Lanka in 2005 remains the highest ODI score ever made by a wicketkeeper-batsman.</div></div></div>
+    <div class="rec-card"><div class="rec-dot"></div><div><div class="rec-title">Won Toss 60% of the Time as Captain</div><div class="rec-desc">One of the most astute tactical minds — his reading of pitches and conditions was unmatched among captains.</div></div></div>
+  </div>
+</section>
+
+<footer>
+  A tribute to the coolest cricketer to ever hold the bat — <span>MS Dhoni #7</span><br/>
+  <span style="color:var(--muted);font-size:11px;margin-top:6px;display:block;">OIBSIP · Web Development · Level 2 · Task 2</span>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.tl-item');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting)
+        setTimeout(() => e.target.classList.add('visible'), i * 120);
+    });
+  }, { threshold: 0.15 });
+  items.forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
