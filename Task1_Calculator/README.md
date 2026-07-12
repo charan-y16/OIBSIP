@@ -1,62 +1,123 @@
-# OIBSIP – CALC-7800 Terminal Calculator
-Live demo : https://charan-y16.github.io/OIBSIP/Task1_Calculator/
+# 🧮 Calculator Application
 
-## Level 2 Task 1
+<div align="center">
 
-A retro terminal-style calculator web application developed as part of the Oasis Infobyte Web Development & Designing Internship (OIBSIP). This project combines basic calculator functionality with a vintage CRT-inspired interface to create an interactive and visually unique user experience.
+## OIBSIP – Web Development & Designing Internship  
+### Level 2 | Task 1
 
----
+A modern and responsive calculator application developed with interactive features and a clean user interface.
 
-## Project Overview
-
-The CALC-7800 Terminal Calculator is a responsive web-based calculator designed with a retro computer terminal theme. It performs standard arithmetic calculations while providing an immersive interface with scanline effects, glowing neon text, and an operation log for tracking previous calculations.
+</div>
 
 ---
 
-## Features
+## 📌 Project Overview
 
-- Basic arithmetic operations: Addition, Subtraction, Multiplication, and Division - Responsive design for desktop and mobile devices - Keyboard support for quick calculations - Percentage calculation - Sign toggle (+/-) - Operation log to store recent calculations - Real-time digital clock display - Retro CRT terminal-inspired user interface with scanline and glow effects - Error handling for invalid operations such as division by zero
+This project is developed as part of the **Oasis Infobyte Internship Program (OIBSIP)** under the **Web Development & Designing domain**.
 
----
+The objective of this task was to create a functional calculator that performs arithmetic operations with an attractive design and smooth user experience.
 
-## Technologies Used
-
-- HTML5 – Structure of the calculator - CSS3 – Styling, animations, and retro terminal effects - JavaScript – Calculator logic, keyboard support, clock, and operation log - Google Fonts – Share Tech Mono and VT323 for the terminal appearance
+The application includes basic calculations, keyboard support, calculation history, and error handling features.
 
 ---
 
-## Project Structure
+## ✨ Features
 
-Task1_Calculator/ │── index.html # Main calculator application │── README.md # Project documentation
+### 🔢 Calculator Operations
+- Addition (+)
+- Subtraction (−)
+- Multiplication (×)
+- Division (÷)
 
----
+### ⚡ Additional Functions
+- Percentage calculation (%)
+- Positive/Negative conversion (±)
+- Clear function (AC)
+- Decimal calculations
 
-## How to Run the Project
-
-1. Download or clone the repository. 2. Navigate to the Task1_Calculator folder. 3. Open the index.html file in any web browser. 4. Start performing calculations using the on-screen buttons or keyboard input.
-
----
-
-## Learning Outcomes
-
-Through this project, practical experience was gained in:
-
-- Building responsive web interfaces - Implementing calculator functionality using JavaScript - Handling user input through both buttons and keyboard events - Creating custom UI effects using CSS animations and gradients - Managing application state and maintaining an operation log - Designing an engaging retro-themed user experience
-
----
-
-## Internship Information
-
-- Program: Oasis Infobyte Internship Program (OIBSIP) - Domain: Web Development & Designing - Level: Level 2 - Task: Task 1 – Calculator
+### 🚀 Advanced Features
+- Calculation history
+- Keyboard input support
+- Division by zero error handling
+- Responsive design
+- Smooth button animations
+- Modern UI design
 
 ---
 
-## Author
+## 🌐 Live Demo
 
-This project was developed as part of the OIBSIP internship to strengthen front-end development skills and gain hands-on experience in creating interactive web applications.
+```
+https://aswinleo144444-lang.github.io/OIBSIP/Task1_Calculator/
+```
 
 ---
 
-## Acknowledgment
+## 🛠️ Technologies Used
 
-Gratitude is extended t
+- HTML5
+- CSS3
+- JavaScript
+
+---
+
+## 📂 Project Structure
+
+```
+Task1_Calculator/
+│
+├── index.html
+└── README.md
+```
+
+---
+
+## ▶️ How to Run the Project
+
+1. Clone the repository:
+
+```
+git clone https://github.com/aswinleo144444-lang/OIBSIP.git
+```
+
+2. Navigate to the project folder:
+
+```
+cd OIBSIP/Task1_Calculator
+```
+
+3. Open `index.html` in your web browser.
+
+---
+
+## 🎯 Learning Outcomes
+
+Through this project, I learned:
+
+- Building responsive web interfaces
+- Implementing JavaScript functionality
+- Handling user interactions
+- Creating dynamic UI components
+- Improving frontend development skills
+
+---
+
+## 👨‍💻 Internship Details
+
+**Program:** Oasis Infobyte Internship Program (OIBSIP)  
+**Domain:** Web Development & Designing  
+**Level:** Level 2  
+**Task:** Task 1 – Calculator Application
+
+---
+
+## 🙏 Acknowledgement
+
+I would like to thank **Oasis Infobyte** for providing this internship opportunity and a platform to enhance my technical skills through practical projects.
+
+Website:
+https://oasisinfobyte.com/
+
+---
+
+⭐ Thank you for visiting this project!
