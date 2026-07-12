@@ -48,7 +48,8 @@ The application includes basic calculations, keyboard support, calculation histo
 ## 🌐 Live Demo
 
 ```
-https://aswinleo144444-lang.github.io/OIBSIP/Task1_Calculator/
+https://charan-y16.github.io/OIBSIP/Task1_Calculator/
+
 ```
 
 ---
