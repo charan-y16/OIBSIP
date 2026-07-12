@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DayDone | OIBSIP – Level 2 Task 3</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:      #FFF8F0;
+      --surface: #FFFFFF;
+      --card:    #FFFFFF;
+      --orange:  #F97316;
+      --orange2: #FB923C;
+      --green:   #16A34A;
+      --red:     #DC2626;
+      --amber:   #D97706;
+      --text:    #1C1917;
+      --muted:   #78716C;
+      --border:  #E7E5E4;
+      --pend-bg: #FFF7ED;
+      --done-bg: #F0FDF4;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      padding-bottom: 60px;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      background: var(--surface);
+      border-bottom: 2px solid var(--border);
+      padding: 14px 24px;
+      display: flex; align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo {
+      font-size: 20px; font-weight: 800;
+      color: var(--text); letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--orange); }
+    .badge {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--orange);
+      background: #FFF7ED;
+      border: 1px solid #FED7AA;
+      border-radius: 20px; padding: 4px 12px;
+    }
+    .date-txt {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; color: var(--muted);
+    }
+
+    .main { max-width: 680px; margin: 0 auto; padding: 32px 20px 0; }
+
+    /* STATS */
+    .stats {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 12px; margin-bottom: 24px;
+    }
+    .stat {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .stat .val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 28px; font-weight: 500; line-height: 1;
+    }
+    .stat .val.t { color: var(--orange); }
+    .stat .val.p { color: var(--amber); }
+    .stat .val.d { color: var(--green); }
+    .stat .lbl { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+    /* PROGRESS */
+    .prog-wrap { margin-bottom: 24px; }
+    .prog-top { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 6px; }
+    .prog-top span { color: var(--green); font-weight: 700; }
+    .prog-bg { background: var(--border); border-radius: 6px; height: 8px; overflow: hidden; }
+    .prog-fill { height: 8px; border-radius: 6px; background: linear-gradient(90deg, var(--orange), var(--green)); transition: width 0.4s; }
+
+    /* ADD TASK */
+    .add-box {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 20px;
+      margin-bottom: 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .add-lbl { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .add-row { display: flex; gap: 10px; }
+    .t-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px; padding: 11px 14px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px; color: var(--text); outline: none;
+      transition: border-color 0.2s;
+    }
+    .t-input::placeholder { color: #A8A29E; }
+    .t-input:focus { border-color: var(--orange); }
+    .add-btn {
+      background: var(--orange); border: none;
+      border-radius: 10px; padding: 11px 20px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 14px; font-weight: 700;
+      color: #fff; cursor: pointer;
+      transition: filter 0.15s, transform 0.1s;
+      box-shadow: 0 4px 12px rgba(249,115,22,0.3);
+    }
+    .add-btn:hover { filter: brightness(1.08); }
+    .add-btn:active { transform: scale(0.96); }
+
+    /* SECTION HEAD */
+    .sec-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .sec-title { font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .dot-p { background: var(--amber); }
+    .dot-d { background: var(--green); }
+    .clr-btn {
+      font-size: 11px; color: var(--muted);
+      background: none; border: 1.5px solid var(--border);
+      border-radius: 6px; padding: 4px 10px; cursor: pointer;
+      font-family: 'Nunito', sans-serif; font-weight: 600;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .clr-btn:hover { color: var(--red); border-color: var(--red); }
+
+    /* TASK LIST */
+    .t-section { margin-bottom: 28px; }
+    .t-list { display: flex; flex-direction: column; gap: 8px; }
+    .t-item {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 12px; padding: 13px 14px;
+      display: flex; align-items: flex-start; gap: 12px;
+      transition: border-color 0.2s, transform 0.15s;
+      animation: pop 0.22s ease;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .t-item:hover { border-color: #D4D0CD; transform: translateX(2px); }
+    .t-item.p-item { border-left: 3px solid var(--amber); background: var(--pend-bg); }
+    .t-item.d-item { border-left: 3px solid var(--green); background: var(--done-bg); }
+    @keyframes pop { from{opacity:0;transform:scale(0.97)} to{opacity:1;transform:scale(1)} }
+
+    .cb-wrap input[type="checkbox"] { display: none; }
+    .cb-wrap label {
+      width: 20px; height: 20px;
+      border: 2px solid #D4D0CD;
+      border-radius: 6px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; transition: all 0.2s; margin-top: 1px;
+    }
+    .cb-wrap input:checked + label { background: var(--green); border-color: var(--green); color: #fff; }
+    .cb-wrap label:hover { border-color: var(--green); }
+
+    .t-content { flex: 1; min-width: 0; }
+    .t-text { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 3px; word-break: break-word; }
+    .d-item .t-text { text-decoration: line-through; color: var(--muted); }
+    .t-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); }
+    .t-meta .done-t { color: var(--green); }
+
+    .t-actions { display: flex; gap: 5px; }
+    .a-btn {
+      width: 28px; height: 28px; border: 1.5px solid var(--border);
+      border-radius: 7px; background: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: var(--muted); transition: all 0.15s;
+    }
+    .a-btn.e:hover { border-color: var(--orange); color: var(--orange); background: #FFF7ED; }
+    .a-btn.d:hover { border-color: var(--red);    color: var(--red);    background: #FEF2F2; }
+
+    /* EMPTY */
+    .empty { text-align: center; padding: 24px; color: var(--muted); font-size: 13px; border: 1.5px dashed var(--border); border-radius: 12px; }
+    .empty .em { font-size: 26px; margin-bottom: 6px; }
+
+    /* MODAL */
+    .m-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
+    .m-overlay.open { display: flex; }
+    .modal { background: var(--surface); border-radius: 18px; padding: 24px; width: min(420px,100%); box-shadow: 0 24px 60px rgba(0,0,0,0.15); }
+    .m-title { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+    .m-input { width: 100%; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 14px; font-family: 'Nunito', sans-serif; font-size: 14px; color: var(--text); outline: none; margin-bottom: 14px; }
+    .m-input:focus { border-color: var(--orange); }
+    .m-acts { display: flex; gap: 10px; justify-content: flex-end; }
+    .m-cancel { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 8px 16px; font-family: 'Nunito', sans-serif; font-size: 13px; color: var(--muted); cursor: pointer; }
+    .m-save { background: var(--orange); border: none; border-radius: 8px; padding: 8px 16px; font-family: 'Nunito', sans-serif; font-size: 13px; font-weight: 700; color: #fff; cursor: pointer; }
+
+    footer { text-align: center; margin-top: 32px; font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+    footer span { color: var(--orange); }
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <div class="logo">Day<span>Done</span></div>
+  <div class="badge">OIBSIP · Level 2 · Task 3</div>
+  <div class="date-txt" id="dt"></div>
+</div>
+<div class="main">
+  <div class="stats">
+    <div class="stat"><div class="val t" id="sT">0</div><div class="lbl">Total</div></div>
+    <div class="stat"><div class="val p" id="sP">0</div><div class="lbl">Pending</div></div>
+    <div class="stat"><div class="val d" id="sD">0</div><div class="lbl">Done</div></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-top"><span id="pLbl">Progress</span><span id="pPct">0%</span></div>
+    <div class="prog-bg"><div class="prog-fill" id="pFill" style="width:0%"></div></div>
+  </div>
+  <div class="add-box">
+    <div class="add-lbl">+ New Task</div>
+    <div class="add-row">
+      <input class="t-input" id="tIn" type="text" placeholder="What needs to be done?" maxlength="120"/>
+      <button class="add-btn" onclick="add()">Add</button>
+    </div>
+  </div>
+  <div class="t-section">
+    <div class="sec-head">
+      <div class="sec-title"><div class="dot dot-p"></div>Pending</div>
+      <button class="clr-btn" onclick="clrSec('p')">Clear All</button>
+    </div>
+    <div class="t-list" id="pList"><div class="empty" id="pEmp"><div class="em">📋</div>No pending tasks!</div></div>
+  </div>
+  <div class="t-section">
+    <div class="sec-head">
+      <div class="sec-title"><div class="dot dot-d"></div>Completed</div>
+      <button class="clr-btn" onclick="clrSec('d')">Clear All</button>
+    </div>
+    <div class="t-list" id="dList"><div class="empty" id="dEmp"><div class="em">✅</div>Nothing completed yet!</div></div>
+  </div>
+</div>
+<div class="m-overlay" id="mo">
+  <div class="modal">
+    <div class="m-title">✏️ Edit Task</div>
+    <input class="m-input" id="mIn" type="text" maxlength="120"/>
+    <div class="m-acts">
+      <button class="m-cancel" onclick="closeM()">Cancel</button>
+      <button class="m-save" onclick="saveM()">Save</button>
+    </div>
+  </div>
+</div>
+<footer>Made with ♥️ for <span>Oasis Infobyte</span> Internship</footer>
+<script>
+  let tasks=[],eId=null,idc=0;
+  const fmt=ts=>{const d=new Date(ts);return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+', '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');};
+  const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  function updateDate(){document.getElementById('dt').textContent=new Date().toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});}
+  updateDate();
+  function add(){const v=document.getElementById('tIn').value.trim();if(!v)return;tasks.push({id:++idc,text:v,done:false,addedAt:Date.now(),doneAt:null});document.getElementById('tIn').value='';render();}
+  document.getElementById('tIn').addEventListener('keydown',e=>{if(e.key==='Enter')add();});
+  function toggle(id){const t=tasks.find(t=>t.id===id);if(!t)return;t.done=!t.done;t.doneAt=t.done?Date.now():null;render();}
+  function del(id){tasks=tasks.filter(t=>t.id!==id);render();}
+  function openE(id){const t=tasks.find(t=>t.id===id);if(!t)return;eId=id;document.getElementById('mIn').value=t.text;document.getElementById('mo').classList.add('open');setTimeout(()=>document.getElementById('mIn').focus(),50);}
+  function closeM(){document.getElementById('mo').classList.remove('open');eId=null;}
+  function saveM(){const v=document.getElementById('mIn').value.trim();if(!v)return;const t=tasks.find(t=>t.id===eId);if(t)t.text=v;closeM();render();}
+  function clrSec(type){tasks=type==='p'?tasks.filter(t=>t.done):tasks.filter(t=>!t.done);render();}
+  document.getElementById('mo').addEventListener('click',e=>{if(e.target===document.getElementById('mo'))closeM();});
+  document.getElementById('mIn').addEventListener('keydown',e=>{if(e.key==='Enter')saveM();if(e.key==='Escape')closeM();});
+  function mkItem(t){
+    const div=document.createElement('div');
+    div.className='t-item '+(t.done?'d-item':'p-item');
+    const uid='cb'+t.id;
+    div.innerHTML=<div class="cb-wrap"><input type="checkbox" id="${uid}" ${t.done?'checked':''}><label for="${uid}">✓</label></div><div class="t-content"><div class="t-text">${esc(t.text)}</div><div class="t-meta">Added ${fmt(t.addedAt)}${t.doneAt? · <span class="done-t">Done ${fmt(t.doneAt)}</span>:''}</div></div><div class="t-actions"><button class="a-btn e" title="Edit">✏️</button><button class="a-btn d" title="Delete">🗑️</button></div>;
+    div.querySelector('input').onchange=()=>toggle(t.id);
+    div.querySelector('.e').onclick=()=>openE(t.id);
+    div.querySelector('.d').onclick=()=>del(t.id);
+    return div;
+  }
+  function render(){
+    const p=tasks.filter(t=>!t.done),d=tasks.filter(t=>t.done);
+    document.getElementById('sT').textContent=tasks.length;
+    document.getElementById('sP').textContent=p.length;
+    document.getElementById('sD').textContent=d.length;
+    const pct=tasks.length?Math.round(d.length/tasks.length*100):0;
+    document.getElementById('pFill').style.width=pct+'%';
+    document.getElementById('pPct').textContent=pct+'%';
+    document.getElementById('pLbl').textContent=pct===100&&tasks.length?'🎉 All done!':'Progress';
+    const pL=document.getElementById('pList'),dL=document.getElementById('dList');
+    pL.querySelectorAll('.t-item').forEach(i=>i.remove());
+    dL.querySelectorAll('.t-item').forEach(i=>i.remove());
+    document.getElementById('pEmp').style.display=p.length?'none':'block';
+    document.getElementById('dEmp').style.display=d.length?'none':'block';
+    p.forEach(t=>pL.appendChild(mkItem(t)));
+    d.forEach(t=>dL.appendChild(mkItem(t)));
+  }
+  render();
+</script>
+</body>
+</html>
