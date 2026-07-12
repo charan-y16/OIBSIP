@@ -1,38 +1,38 @@
-# OIBSIP – MS Dhoni Tribute Page
+# OIBSIP – CALC-7800 Terminal Calculator
 
-## Level 2 Task 2
+## Level 2 Task 1
 
-A visually engaging tribute page dedicated to Mahendra Singh Dhoni, one of India’s greatest cricketers and most successful captains. This project was developed as part of the Oasis Infobyte Web Development & Designing Internship (OIBSIP) to showcase front-end design skills through a responsive and creative web page.
+A retro terminal-style calculator web application developed as part of the Oasis Infobyte Web Development & Designing Internship (OIBSIP). This project combines basic calculator functionality with a vintage CRT-inspired interface to create an interactive and visually unique user experience.
 
 ---
 
 ## Project Overview
 
-The MS Dhoni Tribute Page celebrates the achievements, leadership, and legacy of MS Dhoni. It features a modern dark-themed design with elegant typography, a structured timeline, honours section, world records, and a tribute quote, creating an immersive user experience for cricket fans and visitors.
+The CALC-7800 Terminal Calculator is a responsive web-based calculator designed with a retro computer terminal theme. It performs standard arithmetic calculations while providing an immersive interface with scanline effects, glowing neon text, and an operation log for tracking previous calculations.
 
 ---
 
 ## Features
 
-- Elegant dark-themed tribute page design - Fully responsive layout for desktop, tablet, and mobile devices - Detailed biography and information section - Interactive career timeline highlighting key milestones - Honours and awards section - World records and achievements display - Smooth scrolling and animated timeline effects - Inspirational quote section - Stylish typography using Google Fonts
+- Basic arithmetic operations: Addition, Subtraction, Multiplication, and Division - Responsive design for desktop and mobile devices - Keyboard support for quick calculations - Percentage calculation - Sign toggle (+/-) - Operation log to store recent calculations - Real-time digital clock display - Retro CRT terminal-inspired user interface with scanline and glow effects - Error handling for invalid operations such as division by zero
 
 ---
 
 ## Technologies Used
 
-- HTML5 – Structure and content of the tribute page - CSS3 – Styling, responsive design, and animations - JavaScript – Timeline animation using Intersection Observer - Google Fonts – Cormorant Garamond and Outfit for elegant typography
+- HTML5 – Structure of the calculator - CSS3 – Styling, animations, and retro terminal effects - JavaScript – Calculator logic, keyboard support, clock, and operation log - Google Fonts – Share Tech Mono and VT323 for the terminal appearance
 
 ---
 
 ## Project Structure
 
-Task2_TributePage/ │── index.html # Main tribute page │── README.md # Project documentation
+Task1_Calculator/ │── index.html # Main calculator application │── README.md # Project documentation
 
 ---
 
 ## How to Run the Project
 
-1. Download or clone the repository. 2. Navigate to the Task2_TributePage folder. 3. Open the index.html file in any web browser. 4. Explore the tribute page and scroll through the sections.
+1. Download or clone the repository. 2. Navigate to the Task1_Calculator folder. 3. Open the index.html file in any web browser. 4. Start performing calculations using the on-screen buttons or keyboard input.
 
 ---
 
@@ -40,27 +40,19 @@ Task2_TributePage/ │── index.html # Main tribute page │── README.md 
 
 Through this project, practical experience was gained in:
 
-- Designing responsive and visually appealing web pages - Implementing CSS animations and transitions - Structuring content effectively using semantic HTML - Creating interactive user experiences with JavaScript - Applying modern typography and layout techniques - Enhancing front-end design and UI/UX presentation skills
+- Building responsive web interfaces - Implementing calculator functionality using JavaScript - Handling user input through both buttons and keyboard events - Creating custom UI effects using CSS animations and gradients - Managing application state and maintaining an operation log - Designing an engaging retro-themed user experience
 
 ---
 
 ## Internship Information
 
-- Program: Oasis Infobyte Internship Program (OIBSIP) - Domain: Web Development & Designing - Level: Level 2 - Task: Task 2 – Tribute Page
-
----
-
-## Tribute To
-
-Mahendra Singh Dhoni (MS Dhoni)
-
-- Former Captain of the Indian Cricket Team - Only captain to win all three ICC limited-overs trophies - Renowned for his calm leadership and exceptional wicketkeeping skills - A legendary figure in Indian and world cricket
+- Program: Oasis Infobyte Internship Program (OIBSIP) - Domain: Web Development & Designing - Level: Level 2 - Task: Task 1 – Calculator
 
 ---
 
 ## Author
 
-This project was developed as part of the OIBSIP internship to strengthen front-end development skills and gain hands-on experience in creating responsive and interactive web pages.
+This project was developed as part of the OIBSIP internship to strengthen front-end development skills and gain hands-on experience in creating interactive web applications.
 
 ---
 
