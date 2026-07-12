@@ -247,7 +247,7 @@
     </div>
   </div>
 </div>
-<footer>Made with ♥️ for <span>Oasis Infobyte</span> Internship</footer>
+<footer>Made with ♥ for <span>Oasis Infobyte</span> Internship</footer>
 <script>
   let tasks=[],eId=null,idc=0;
   const fmt=ts=>{const d=new Date(ts);return d.toLocaleDateString('en-US',{month:'short',day:'numeric'})+', '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');};
@@ -268,7 +268,7 @@
     const div=document.createElement('div');
     div.className='t-item '+(t.done?'d-item':'p-item');
     const uid='cb'+t.id;
-    div.innerHTML=<div class="cb-wrap"><input type="checkbox" id="${uid}" ${t.done?'checked':''}><label for="${uid}">✓</label></div><div class="t-content"><div class="t-text">${esc(t.text)}</div><div class="t-meta">Added ${fmt(t.addedAt)}${t.doneAt? · <span class="done-t">Done ${fmt(t.doneAt)}</span>:''}</div></div><div class="t-actions"><button class="a-btn e" title="Edit">✏️</button><button class="a-btn d" title="Delete">🗑️</button></div>;
+    div.innerHTML=`<div class="cb-wrap"><input type="checkbox" id="${uid}" ${t.done?'checked':''}><label for="${uid}">✓</label></div><div class="t-content"><div class="t-text">${esc(t.text)}</div><div class="t-meta">Added ${fmt(t.addedAt)}${t.doneAt?` · <span class="done-t">Done ${fmt(t.doneAt)}</span>`:''}</div></div><div class="t-actions"><button class="a-btn e" title="Edit">✏️</button><button class="a-btn d" title="Delete">🗑️</button></div>`;
     div.querySelector('input').onchange=()=>toggle(t.id);
     div.querySelector('.e').onclick=()=>openE(t.id);
     div.querySelector('.d').onclick=()=>del(t.id);
