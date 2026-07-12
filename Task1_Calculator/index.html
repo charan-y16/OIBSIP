@@ -3,166 +3,94 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CALC-7800 Terminal | OIBSIP – Level 2 Task 1</title>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet"/>
+  <title>Calculator | OIBSIP – Level 2 Task 1</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #0D0D00;
-      --terminal: #111100;
-      --green:    #39FF14;
-      --green-dim:#1A7A09;
-      --green-bg: rgba(57,255,20,0.04);
-      --amber:    #FFB300;
-      --border:   rgba(57,255,20,0.25);
-      --scan:     repeating-linear-gradient(
-        to bottom,
-        transparent 0px,
-        transparent 2px,
-        rgba(0,0,0,0.15) 2px,
-        rgba(0,0,0,0.15) 4px
-      );
+      --bg:        #F2F2F7;
+      --surface:   #FFFFFF;
+      --btn-num:   #FFFFFF;
+      --btn-op:    #E8E3FF;
+      --btn-eq:    #1C1C1E;
+      --btn-fn:    #E5E5EA;
+      --accent:    #5E5CE6;
+      --text:      #1C1C1E;
+      --muted:     #8E8E93;
+      --shadow:    0 2px 12px rgba(0,0,0,0.08);
+      --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
     }
 
     body {
       min-height: 100vh;
       background: var(--bg);
-      background-image: radial-gradient(ellipse at center, #1a1a00 0%, #0D0D00 70%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      font-family: 'Share Tech Mono', monospace;
+      font-family: 'DM Sans', sans-serif;
       padding: 24px;
-      color: var(--green);
     }
 
-    /* CRT flicker */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: var(--scan);
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
-    header { text-align: center; margin-bottom: 20px; }
-    .sys-line {
-      font-family: 'VT323', monospace;
-      font-size: 13px;
-      color: var(--green-dim);
+    header { text-align: center; margin-bottom: 28px; }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
       letter-spacing: 2px;
-      margin-bottom: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(94,92,230,0.08);
+      border-radius: 20px;
+      padding: 4px 14px;
+      margin-bottom: 10px;
     }
-    .sys-title {
-      font-family: 'VT323', monospace;
-      font-size: 28px;
-      color: var(--green);
-      letter-spacing: 4px;
-      text-shadow: 0 0 10px var(--green);
+    header h1 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.5px;
     }
 
     .calc-wrap {
-      background: var(--terminal);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 20px;
-      width: min(360px, 100%);
-      box-shadow:
-        0 0 0 1px rgba(57,255,20,0.05),
-        0 0 30px rgba(57,255,20,0.08),
-        inset 0 0 30px rgba(0,0,0,0.5);
-      position: relative;
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 24px;
+      width: min(340px, 100%);
+      box-shadow: var(--shadow-lg);
     }
 
-    /* Scanline on calc */
-    .calc-wrap::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        transparent 50%,
-        rgba(57,255,20,0.03) 50%
-      );
-      background-size: 100% 4px;
-      pointer-events: none;
-      border-radius: 4px;
-      z-index: 1;
-    }
-
-    /* Top bar */
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-      font-size: 11px;
-      color: var(--green-dim);
-      letter-spacing: 2px;
-    }
-    .top-bar .blink {
-      animation: blink 1s step-end infinite;
-      color: var(--green);
-    }
-    @keyframes blink { 50% { opacity: 0; } }
-
-    /* Display */
     .display {
-      background: #050500;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      padding: 12px 14px 10px;
-      margin-bottom: 16px;
-      min-height: 90px;
+      background: var(--bg);
+      border-radius: 18px;
+      padding: 20px 20px 14px;
+      margin-bottom: 18px;
+      min-height: 100px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       align-items: flex-end;
-      position: relative;
-      overflow: hidden;
-    }
-    .display::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(57,255,20,0.03) 0%, transparent 70%);
-      pointer-events: none;
     }
     .expr {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 12px;
-      color: var(--green-dim);
-      min-height: 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 18px;
       text-align: right;
-      letter-spacing: 1px;
     }
     .result {
-      font-family: 'VT323', monospace;
-      font-size: 52px;
-      color: var(--green);
+      font-family: 'DM Mono', monospace;
+      font-size: 42px;
+      font-weight: 500;
+      color: var(--text);
+      letter-spacing: -1px;
       text-align: right;
-      line-height: 1;
-      text-shadow: 0 0 12px rgba(57,255,20,0.6);
       word-break: break-all;
       transition: color 0.2s;
     }
-    .display.error .result { color: #FF4444; text-shadow: 0 0 12px rgba(255,68,68,0.6); }
+    .display.error .result { color: #FF3B30; }
 
-    /* cursor blink on result */
-    .result::after {
-      content: '█';
-      font-size: 36px;
-      animation: blink 0.8s step-end infinite;
-      opacity: 0.7;
-    }
-
-    /* Btn grid */
     .btn-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -170,168 +98,127 @@
     }
 
     .btn {
-      font-family: 'VT323', monospace;
-      font-size: 22px;
-      letter-spacing: 1px;
-      background: #050500;
-      border: 1px solid var(--green-dim);
-      border-radius: 2px;
-      padding: 14px 0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      font-weight: 500;
+      border: none;
+      border-radius: 14px;
+      padding: 18px 0;
       cursor: pointer;
-      color: var(--green);
-      transition: all 0.08s;
-      position: relative;
-      text-shadow: 0 0 6px rgba(57,255,20,0.4);
+      transition: transform 0.08s, box-shadow 0.15s, filter 0.15s;
+      box-shadow: var(--shadow);
     }
-    .btn:hover {
-      background: rgba(57,255,20,0.08);
-      border-color: var(--green);
-      text-shadow: 0 0 14px var(--green);
-      box-shadow: 0 0 8px rgba(57,255,20,0.15);
-    }
-    .btn:active {
-      background: rgba(57,255,20,0.15);
-      transform: scale(0.96);
-    }
+    .btn:hover  { filter: brightness(0.96); }
+    .btn:active { transform: scale(0.94); box-shadow: none; }
 
-    .btn-op    { color: var(--amber); border-color: rgba(255,179,0,0.4); text-shadow: 0 0 6px rgba(255,179,0,0.4); }
-    .btn-op:hover { border-color: var(--amber); text-shadow: 0 0 14px var(--amber); box-shadow: 0 0 8px rgba(255,179,0,0.2); background: rgba(255,179,0,0.06); }
-    .btn-eq    {
-      background: rgba(57,255,20,0.1);
-      border-color: var(--green);
-      box-shadow: 0 0 12px rgba(57,255,20,0.15);
-      font-size: 26px;
-    }
-    .btn-fn    { color: #88FF88; border-color: rgba(57,255,20,0.2); font-size: 18px; }
-    .btn-zero  { grid-column: span 2; text-align: left; padding-left: 18px; }
+    .btn-num  { background: var(--btn-num); color: var(--text); }
+    .btn-op   { background: var(--btn-op);  color: var(--accent); font-size: 20px; }
+    .btn-fn   { background: var(--btn-fn);  color: var(--text); }
+    .btn-eq   { background: var(--btn-eq);  color: #fff; box-shadow: 0 4px 16px rgba(28,28,30,0.25); }
+    .btn-zero { grid-column: span 2; text-align: left; padding-left: 24px; }
 
-    /* Terminal log */
-    .terminal-log {
-      margin-top: 14px;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      background: #050500;
+    /* history */
+    .hist-toggle {
+      width: 100%; margin-top: 14px;
+      background: none; border: 1.5px solid #E5E5EA;
+      border-radius: 12px; padding: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 12px; color: var(--muted);
+      letter-spacing: 1px; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .log-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 7px 12px;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
+    .hist-toggle:hover { border-color: var(--accent); color: var(--accent); }
+    .hist-list { display: none; margin-top: 10px; max-height: 140px; overflow-y: auto; }
+    .hist-list.open { display: block; }
+    .hist-item {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px; color: var(--muted);
+      padding: 7px 4px;
+      border-bottom: 1px solid var(--bg);
+      cursor: pointer; transition: color 0.15s;
     }
-    .log-header:hover { background: var(--green-bg); }
-    .log-title { font-size: 11px; color: var(--green-dim); letter-spacing: 2px; }
-    .log-toggle-btn { font-size: 11px; color: var(--green-dim); background: none; border: none; cursor: pointer; font-family: 'Share Tech Mono', monospace; }
-    .log-body { display: none; max-height: 130px; overflow-y: auto; padding: 8px 12px; scrollbar-width: thin; scrollbar-color: var(--green-dim) transparent; }
-    .log-body.open { display: block; }
-    .log-item { font-size: 12px; color: var(--green-dim); padding: 4px 0; border-bottom: 1px solid rgba(57,255,20,0.05); cursor: pointer; transition: color 0.15s; display: flex; justify-content: space-between; }
-    .log-item:hover { color: var(--green); }
-    .log-item .res { color: var(--green); font-weight: 500; }
-    .log-empty { font-size: 11px; color: var(--green-dim); padding: 8px 0; text-align: center; letter-spacing: 2px; }
+    .hist-item:hover { color: var(--text); }
+    .hist-item span { color: var(--accent); font-weight: 500; }
+    .hist-empty { font-size: 12px; color: var(--muted); text-align: center; padding: 12px; font-family: 'DM Mono', monospace; }
 
-    .prompt { color: var(--green-dim); margin-right: 4px; }
-
-    footer { margin-top: 20px; text-align: center; font-size: 11px; color: var(--green-dim); letter-spacing: 2px; }
-    footer span { color: var(--green); text-shadow: 0 0 6px rgba(57,255,20,0.4); }
+    footer { margin-top: 20px; font-size: 11px; color: var(--muted); text-align: center; letter-spacing: 1px; }
+    footer span { color: var(--accent); }
   </style>
 </head>
 <body>
 
 <header>
-  <div class="sys-line">OIBSIP · WEB DEV · LEVEL 2 · TASK 1</div>
-  <div class="sys-title">CALC-7800 TERMINAL</div>
+  <div class="badge">OIBSIP · Web Dev · Level 2 · Task 1</div>
+  <h1>Calculator</h1>
 </header>
 
 <div class="calc-wrap">
-  <div class="top-bar">
-    <span>SYS:READY</span>
-    <span class="blink">█</span>
-    <span id="clock">00:00:00</span>
-  </div>
-
   <div class="display" id="display">
-    <div class="expr" id="expr"><span class="prompt">&gt;</span> <span id="exprText"></span></div>
+    <div class="expr" id="expr"></div>
     <div class="result" id="result">0</div>
   </div>
 
   <div class="btn-grid">
-    <button class="btn btn-fn" data-action="clear">CLR</button>
-    <button class="btn btn-fn" data-action="sign">+/-</button>
-    <button class="btn btn-fn" data-action="percent">PCT</button>
-    <button class="btn btn-op" data-action="op" data-val="÷">DIV</button>
+    <button class="btn btn-fn" data-action="clear">AC</button>
+    <button class="btn btn-fn" data-action="sign">±</button>
+    <button class="btn btn-fn" data-action="percent">%</button>
+    <button class="btn btn-op" data-action="op" data-val="÷">÷</button>
 
-    <button class="btn" data-action="digit" data-val="7">7</button>
-    <button class="btn" data-action="digit" data-val="8">8</button>
-    <button class="btn" data-action="digit" data-val="9">9</button>
-    <button class="btn btn-op" data-action="op" data-val="×">MUL</button>
+    <button class="btn btn-num" data-action="digit" data-val="7">7</button>
+    <button class="btn btn-num" data-action="digit" data-val="8">8</button>
+    <button class="btn btn-num" data-action="digit" data-val="9">9</button>
+    <button class="btn btn-op"  data-action="op"    data-val="×">×</button>
 
-    <button class="btn" data-action="digit" data-val="4">4</button>
-    <button class="btn" data-action="digit" data-val="5">5</button>
-    <button class="btn" data-action="digit" data-val="6">6</button>
-    <button class="btn btn-op" data-action="op" data-val="−">SUB</button>
+    <button class="btn btn-num" data-action="digit" data-val="4">4</button>
+    <button class="btn btn-num" data-action="digit" data-val="5">5</button>
+    <button class="btn btn-num" data-action="digit" data-val="6">6</button>
+    <button class="btn btn-op"  data-action="op"    data-val="−">−</button>
 
-    <button class="btn" data-action="digit" data-val="1">1</button>
-    <button class="btn" data-action="digit" data-val="2">2</button>
-    <button class="btn" data-action="digit" data-val="3">3</button>
-    <button class="btn btn-op" data-action="op" data-val="+">ADD</button>
+    <button class="btn btn-num" data-action="digit" data-val="1">1</button>
+    <button class="btn btn-num" data-action="digit" data-val="2">2</button>
+    <button class="btn btn-num" data-action="digit" data-val="3">3</button>
+    <button class="btn btn-op"  data-action="op"    data-val="+">+</button>
 
-    <button class="btn btn-zero" data-action="digit" data-val="0">0</button>
-    <button class="btn" data-action="dot">.</button>
-    <button class="btn btn-eq" data-action="equals">RUN</button>
+    <button class="btn btn-num btn-zero" data-action="digit" data-val="0">0</button>
+    <button class="btn btn-num" data-action="dot">.</button>
+    <button class="btn btn-eq"  data-action="equals">=</button>
   </div>
 
-  <div class="terminal-log">
-    <div class="log-header" onclick="toggleLog()">
-      <span class="log-title">// OPERATION LOG</span>
-      <button class="log-toggle-btn" id="logBtn">[EXPAND]</button>
-    </div>
-    <div class="log-body" id="logBody">
-      <div class="log-empty" id="logEmpty">NO RECORDS FOUND_</div>
-    </div>
+  <button class="hist-toggle" id="histToggle">▸ History</button>
+  <div class="hist-list" id="histList">
+    <div class="hist-empty" id="histEmpty">No calculations yet.</div>
   </div>
 </div>
 
-<footer>OIBSIP · <span>OASIS INFOBYTE</span> · WEB INTERNSHIP</footer>
+<footer></footer>
 
 <script>
-  let cur='0',prev='',op=null,reset=false,hist=[];
+  let cur='0', prev='', op=null, reset=false, hist=[];
   const display=document.getElementById('display');
   const resultEl=document.getElementById('result');
-  const exprText=document.getElementById('exprText');
-  const logBody=document.getElementById('logBody');
-  const logEmpty=document.getElementById('logEmpty');
-
-  // Clock
-  function updateClock(){
-    const now=new Date();
-    const h=String(now.getHours()).padStart(2,'0');
-    const m=String(now.getMinutes()).padStart(2,'0');
-    const s=String(now.getSeconds()).padStart(2,'0');
-    document.getElementById('clock').textContent=${h}:${m}:${s};
-  }
-  setInterval(updateClock,1000); updateClock();
+  const exprEl=document.getElementById('expr');
+  const histList=document.getElementById('histList');
+  const histEmpty=document.getElementById('histEmpty');
 
   function render(v,e='',err=false){
-    resultEl.textContent=v; exprText.textContent=e;
+    resultEl.textContent=v; exprEl.textContent=e;
     display.classList.toggle('error',err);
   }
   function digit(d){
     if(reset){cur=d;reset=false;}
     else cur=cur==='0'?d:cur+d;
-    if(cur.length>12)cur=cur.slice(0,12);
-    render(cur,exprText.textContent);
+    if(cur.length>14)cur=cur.slice(0,14);
+    render(cur,exprEl.textContent);
   }
   function dot(){
     if(reset){cur='0.';reset=false;}
     else if(!cur.includes('.'))cur+='.';
-    render(cur,exprText.textContent);
+    render(cur,exprEl.textContent);
   }
   function setOp(o){
     if(op&&!reset)calc(false);
     prev=cur; op=o; reset=true;
-    const sym={'+':'ADD','−':'SUB','×':'MUL','÷':'DIV'}[o]||o;
-    render(cur,${prev} ${sym});
+    render(cur,`${prev} ${o}`);
   }
   function calc(fin=true){
     if(!op||!prev)return;
@@ -340,53 +227,49 @@
     switch(op){
       case '+':res=a+b;break; case '−':res=a-b;break;
       case '×':res=a*b;break;
-      case '÷':
-        if(b===0){render('ERR:DIV0',${a} DIV 0,true);op=null;return;}
-        res=a/b;break;
+      case '÷':if(b===0){render('Error',`${a}÷0`,true);op=null;return;}res=a/b;break;
     }
-    const sym={'+':'ADD','−':'SUB','×':'MUL','÷':'DIV'}[op]||op;
-    const e=${prev} ${sym} ${cur};
+    const e=`${prev} ${op} ${cur} =`;
     res=parseFloat(res.toPrecision(12));
-    if(fin){addLog(e,String(res));op=null;prev='';reset=true;}
-    cur=String(res);
-    render(cur,fin?e+' =':e);
+    if(fin){addHist(e,String(res));op=null;prev='';reset=true;}
+    cur=String(res); render(cur,fin?e:`${prev} ${op}`);
   }
-  function addLog(e,r){
-    hist.unshift({e,r}); if(hist.length>20)hist.pop(); renderLog();
+  function addHist(e,r){
+    hist.unshift({e,r}); if(hist.length>20)hist.pop(); renderHist();
   }
-  function renderLog(){
-    logEmpty.style.display=hist.length?'none':'block';
-    logBody.querySelectorAll('.log-item').forEach(i=>i.remove());
+  function renderHist(){
+    histEmpty.style.display=hist.length?'none':'block';
+    histList.querySelectorAll('.hist-item').forEach(i=>i.remove());
     hist.forEach(h=>{
       const d=document.createElement('div');
-      d.className='log-item';
-      d.innerHTML=<span>${h.e}</span><span class="res">= ${h.r}</span>;
+      d.className='hist-item';
+      d.innerHTML=`${h.e} <span>${h.r}</span>`;
       d.onclick=()=>{cur=h.r;reset=true;render(h.r,h.e);};
-      logBody.appendChild(d);
+      histList.appendChild(d);
     });
   }
-  function toggleLog(){
-    const o=logBody.classList.toggle('open');
-    document.getElementById('logBtn').textContent=o?'[COLLAPSE]':'[EXPAND]';
-  }
+  document.getElementById('histToggle').onclick=function(){
+    const o=histList.classList.toggle('open');
+    this.textContent=(o?'▾':'▸')+' History';
+  };
   document.querySelector('.btn-grid').addEventListener('click',e=>{
     const b=e.target.closest('.btn'); if(!b)return;
     const a=b.dataset.action,v=b.dataset.val;
     if(a==='digit')digit(v); else if(a==='dot')dot();
     else if(a==='op')setOp(v); else if(a==='equals')calc(true);
     else if(a==='clear'){cur='0';prev='';op=null;reset=false;render('0','');display.classList.remove('error');}
-    else if(a==='sign'){cur=String(parseFloat(cur)*-1);render(cur,exprText.textContent);}
-    else if(a==='percent'){cur=String(parseFloat(cur)/100);render(cur,exprText.textContent);}
+    else if(a==='sign'){cur=String(parseFloat(cur)*-1);render(cur,exprEl.textContent);}
+    else if(a==='percent'){cur=String(parseFloat(cur)/100);render(cur,exprEl.textContent);}
   });
-  const km={'0':'0','1':'1','2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9','.':'.','+':+,'-':'−','*':'×','/':'÷','Enter':'=','Escape':'CLR','%':'%'};
+  const km={'0':'0','1':'1','2':'2','3':'3','4':'4','5':'5','6':'6','7':'7','8':'8','9':'9','.':'.','+':`+`,'-':'−','*':'×','/':'÷','Enter':'=','Escape':'AC','%':'%'};
   document.addEventListener('keydown',e=>{
     const m=km[e.key]; if(!m)return; e.preventDefault();
     if('0123456789'.includes(m))digit(m);
     else if(m==='.')dot();
     else if(['+','−','×','÷'].includes(m))setOp(m);
     else if(m==='=')calc(true);
-    else if(m==='CLR'){cur='0';prev='';op=null;reset=false;render('0','');display.classList.remove('error');}
-    else if(m==='%'){cur=String(parseFloat(cur)/100);render(cur,exprText.textContent);}
+    else if(m==='AC'){cur='0';prev='';op=null;reset=false;render('0','');display.classList.remove('error');}
+    else if(m==='%'){cur=String(parseFloat(cur)/100);render(cur,exprEl.textContent);}
   });
   render('0','');
 </script>
